@@ -57,7 +57,8 @@ class TransaksiResource extends Resource
 						// Find the last transaction for the current month
 						$lastTransaction = Transaksi::whereYear('created_at', $year)->whereMonth('created_at', $month)->latest()->first();
 						$nextNumber = $lastTransaction ? (int) substr($lastTransaction->nomor_nota, -4) + 1 : 1;
-						return "BJM-{$year}{$month}" . str_pad($nextNumber, 2, '0', STR_PAD_LEFT);					}),
+						return "BJM-{$year}{$month}" . str_pad($nextNumber, 2, '0', STR_PAD_LEFT);
+                    }),
                 Select::make('level_harga')
 					->label('Level Harga')
 					->options(Level::class)
@@ -105,6 +106,8 @@ class TransaksiResource extends Resource
 							->relationship('barang', 'nama')
 							->label('Nama Barang')
 							->reactive()
+                            ->searchable()
+                            ->preload()
 							->afterStateUpdated(function ($state, callable $set, callable $get) {
 							}),
 
@@ -117,8 +120,7 @@ class TransaksiResource extends Resource
 							}),
 
 						TextInput::make('harga_satuan')
-							->numeric()
-							->readOnly(),
+							->numeric(), 
 
 						TextInput::make('subtotal')
 							->numeric()
