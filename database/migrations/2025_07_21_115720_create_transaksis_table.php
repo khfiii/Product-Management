@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nomor_nota')->unique();
             $table->foreignId('pelanggan_id')->constrained()->onDelete('cascade');
+            $table->string('delivery');
             $table->date('tanggal_transaksi');
             $table->date('jatuh_tempo')->nullable();
             $table->integer('total_transaksi')->default(0);
