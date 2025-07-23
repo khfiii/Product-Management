@@ -77,6 +77,7 @@ class TransaksiResource extends Resource
                       
 				Select::make('pelanggan_id')
 					->label('Pelanggan')
+                    ->searchable()
 					->options(function (Get $get) { 				
 						return \App\Models\Pelanggan::where('level_harga', $get('level_harga'))->pluck('nama', 'id');
 					})
