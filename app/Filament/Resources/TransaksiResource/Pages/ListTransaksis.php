@@ -16,21 +16,6 @@ class ListTransaksis extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            Action::make('syncHargaBarang')
-            ->label('Sync Harga Barang')
-            ->icon('heroicon-o-arrow-down-tray')
-            ->color('success')
-            ->action(function () {
-                try {
-                    $data = HargaBarangService::sync();
-
-                    dd($data);
-                    
-                } catch (\Throwable $e) {
-                    dd($e);
-                    // filament()->notify('danger', 'Gagal sync: ' . $e->getMessage());
-                }
-            }),
         ];
     }
 }
