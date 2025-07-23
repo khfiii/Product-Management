@@ -21,6 +21,11 @@ class PelangganSeeder extends Seeder
                 'termin' => 30
             ],
             [
+                'nama' => 'CASH',
+                'level_harga' => Level::ECER,
+                'termin' => 0
+            ],
+            [
                 'nama' => 'TIARA',
                 'level_harga' => Level::PYK,
                 'termin' => 30

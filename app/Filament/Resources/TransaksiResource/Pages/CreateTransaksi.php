@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\TransaksiResource\Pages;
 
-use App\Filament\Resources\TransaksiResource;
+use App\Level;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\TransaksiResource;
 
 class CreateTransaksi extends CreateRecord
 {
@@ -12,7 +13,14 @@ class CreateTransaksi extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
 {
-    dd($data);
+
+    if($data['level_harga'] == 'ECER'){
+        // set meta for ecer
+    }else{
+        
+    }
+
+
     // Hitung total item transaksi
     $data['total'] = collect($data['itemTransaksis'] ?? [])->sum(function ($item) {
         return ($item['qty'] ?? 0) * ($item['harga_satuan'] ?? 0);
@@ -20,8 +28,6 @@ class CreateTransaksi extends CreateRecord
 
     // Hitung total pembayaran
     $data['total_bayar'] = collect($data['pembayarans'] ?? [])->sum('jumlah');
-
-    dd($data);
 
     // Hitung sisa piutang
     $data['sisa_piutang'] = $data['total'] - $data['total_bayar'];

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Zoha\Metable;
 use App\Models\Pelanggan;
 use App\Models\Pembayaran;
 use App\Models\ItemTransaksi;
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
+    use Metable;
+    
     protected $guarded = ['id'];
 
         public function pelanggan()

@@ -69,7 +69,8 @@ class TransaksiResource extends Resource
 					->required(),
                 Forms\Components\Fieldset::make('')
                     ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('nama_pelanggan')
+                            ->required()
                             ->label('Nama Pelanggan')
                             ->hidden(fn (Get $get): bool => $get('level_harga') !== 'ECER'),
                         
@@ -89,7 +90,8 @@ class TransaksiResource extends Resource
                             Select::make('delivery')
                             ->label('Opsi Pengantaran')
                             ->options(Pengantaran::class)
-                            ->required(),
+                            ->required()
+                            ->live(),
                     ]),
 
                   
@@ -123,11 +125,18 @@ class TransaksiResource extends Resource
 							->numeric(), 
 
 						TextInput::make('subtotal')
-							->numeric()
-							->readOnly(),
+							->numeric(),
                         ])
 					])
 			]),
+
+
+            Section::make('Pembayaran')
+            ->schema([
+                TextInput::make('Ongkir')
+                ->numeric()
+                ->hidden(fn (Get $get): bool => $get('delivery') != 'ANTAR')
+            ])
 		]);
 	}
 
